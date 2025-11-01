@@ -43,34 +43,34 @@ std::string pretty(Bitboard b);
 
 }  // namespace Stockfish::Bitboards
 
-constexpr Bitboard Palace = Bitboard(0x70381CULL) << 64 | Bitboard(0xE07038ULL);
+inline Bitboard Palace = Bitboard(0x70381CULL) << 64 | Bitboard(0xE07038ULL);
 
-constexpr Bitboard FileABB = Bitboard(0x20100ULL) << 64 | Bitboard(0x8040201008040201ULL);
-constexpr Bitboard FileBBB = FileABB << 1;
-constexpr Bitboard FileCBB = FileABB << 2;
-constexpr Bitboard FileDBB = FileABB << 3;
-constexpr Bitboard FileEBB = FileABB << 4;
-constexpr Bitboard FileFBB = FileABB << 5;
-constexpr Bitboard FileGBB = FileABB << 6;
-constexpr Bitboard FileHBB = FileABB << 7;
-constexpr Bitboard FileIBB = FileABB << 8;
+inline Bitboard FileABB = Bitboard(0x20100ULL) << 64 | Bitboard(0x8040201008040201ULL);
+inline Bitboard FileBBB = FileABB << 1;
+inline Bitboard FileCBB = FileABB << 2;
+inline Bitboard FileDBB = FileABB << 3;
+inline Bitboard FileEBB = FileABB << 4;
+inline Bitboard FileFBB = FileABB << 5;
+inline Bitboard FileGBB = FileABB << 6;
+inline Bitboard FileHBB = FileABB << 7;
+inline Bitboard FileIBB = FileABB << 8;
 
-constexpr Bitboard Rank0BB = 0x1FF;
-constexpr Bitboard Rank1BB = Rank0BB << (FILE_NB * 1);
-constexpr Bitboard Rank2BB = Rank0BB << (FILE_NB * 2);
-constexpr Bitboard Rank3BB = Rank0BB << (FILE_NB * 3);
-constexpr Bitboard Rank4BB = Rank0BB << (FILE_NB * 4);
-constexpr Bitboard Rank5BB = Rank0BB << (FILE_NB * 5);
-constexpr Bitboard Rank6BB = Rank0BB << (FILE_NB * 6);
-constexpr Bitboard Rank7BB = Rank0BB << (FILE_NB * 7);
-constexpr Bitboard Rank8BB = Rank0BB << (FILE_NB * 8);
-constexpr Bitboard Rank9BB = Rank0BB << (FILE_NB * 9);
+inline Bitboard Rank0BB = 0x1FF;
+inline Bitboard Rank1BB = Rank0BB << (FILE_NB * 1);
+inline Bitboard Rank2BB = Rank0BB << (FILE_NB * 2);
+inline Bitboard Rank3BB = Rank0BB << (FILE_NB * 3);
+inline Bitboard Rank4BB = Rank0BB << (FILE_NB * 4);
+inline Bitboard Rank5BB = Rank0BB << (FILE_NB * 5);
+inline Bitboard Rank6BB = Rank0BB << (FILE_NB * 6);
+inline Bitboard Rank7BB = Rank0BB << (FILE_NB * 7);
+inline Bitboard Rank8BB = Rank0BB << (FILE_NB * 8);
+inline Bitboard Rank9BB = Rank0BB << (FILE_NB * 9);
 
 
-constexpr Bitboard PawnFileBB = FileABB | FileCBB | FileEBB | FileGBB | FileIBB;
-constexpr Bitboard HalfBB[2]  = {Rank0BB | Rank1BB | Rank2BB | Rank3BB | Rank4BB,
+inline Bitboard PawnFileBB = FileABB | FileCBB | FileEBB | FileGBB | FileIBB;
+inline Bitboard HalfBB[2]  = {Rank0BB | Rank1BB | Rank2BB | Rank3BB | Rank4BB,
                                  Rank5BB | Rank6BB | Rank7BB | Rank8BB | Rank9BB};
-constexpr Bitboard PawnBB[2]  = {HalfBB[BLACK] | ((Rank3BB | Rank4BB) & PawnFileBB),
+inline Bitboard PawnBB[2]  = {HalfBB[BLACK] | ((Rank3BB | Rank4BB) & PawnFileBB),
                                  HalfBB[WHITE] | ((Rank6BB | Rank5BB) & PawnFileBB)};
 
 extern uint8_t PopCnt16[1 << 16];
@@ -107,7 +107,7 @@ extern Magic BishopMagics[SQUARE_NB];
 extern Magic KnightMagics[SQUARE_NB];
 extern Magic KnightToMagics[SQUARE_NB];
 
-constexpr Bitboard square_bb(Square s) {
+inline Bitboard square_bb(Square s) {
     assert(is_ok(s));
     return SquareBB[s];
 }
@@ -116,17 +116,17 @@ constexpr Bitboard square_bb(Square s) {
 // Overloads of bitwise operators between a Bitboard and a Square for testing
 // whether a given bit is set in a bitboard, and for setting and clearing bits.
 
-constexpr Bitboard  operator&(Bitboard b, Square s) { return b & square_bb(s); }
-constexpr Bitboard  operator|(Bitboard b, Square s) { return b | square_bb(s); }
-constexpr Bitboard  operator^(Bitboard b, Square s) { return b ^ square_bb(s); }
-constexpr Bitboard& operator|=(Bitboard& b, Square s) { return b |= square_bb(s); }
-constexpr Bitboard& operator^=(Bitboard& b, Square s) { return b ^= square_bb(s); }
+inline Bitboard  operator&(Bitboard b, Square s) { return b & square_bb(s); }
+inline Bitboard  operator|(Bitboard b, Square s) { return b | square_bb(s); }
+inline Bitboard  operator^(Bitboard b, Square s) { return b ^ square_bb(s); }
+inline Bitboard& operator|=(Bitboard& b, Square s) { return b |= square_bb(s); }
+inline Bitboard& operator^=(Bitboard& b, Square s) { return b ^= square_bb(s); }
 
-constexpr Bitboard operator&(Square s, Bitboard b) { return b & s; }
-constexpr Bitboard operator|(Square s, Bitboard b) { return b | s; }
-constexpr Bitboard operator^(Square s, Bitboard b) { return b ^ s; }
+inline Bitboard operator&(Square s, Bitboard b) { return b & s; }
+inline Bitboard operator|(Square s, Bitboard b) { return b | s; }
+inline Bitboard operator^(Square s, Bitboard b) { return b ^ s; }
 
-constexpr Bitboard operator|(Square s1, Square s2) { return square_bb(s1) | s2; }
+inline Bitboard operator|(Square s1, Square s2) { return square_bb(s1) | s2; }
 
 constexpr bool more_than_one(Bitboard b) { return bool(b & (b - 1)); }
 
@@ -134,18 +134,18 @@ constexpr bool more_than_one(Bitboard b) { return bool(b & (b - 1)); }
 // rank_bb() and file_bb() return a bitboard representing all the squares on
 // the given file or rank.
 
-constexpr Bitboard rank_bb(Rank r) { return Rank0BB << (FILE_NB * r); }
+inline Bitboard rank_bb(Rank r) { return Rank0BB << (FILE_NB * r); }
 
-constexpr Bitboard rank_bb(Square s) { return rank_bb(rank_of(s)); }
+inline Bitboard rank_bb(Square s) { return rank_bb(rank_of(s)); }
 
-constexpr Bitboard file_bb(File f) { return FileABB << std::uint8_t(f); }
+inline Bitboard file_bb(File f) { return FileABB << std::uint8_t(f); }
 
-constexpr Bitboard file_bb(Square s) { return file_bb(file_of(s)); }
+inline Bitboard file_bb(Square s) { return file_bb(file_of(s)); }
 
 
 // Moves a bitboard one or two steps as specified by the direction D
 template<Direction D>
-constexpr Bitboard shift(Bitboard b) {
+inline Bitboard shift(Bitboard b) {
     return D == NORTH         ? (b & ~Rank9BB) << std::uint8_t(NORTH)
          : D == SOUTH         ? b >> std::uint8_t(NORTH)
          : D == NORTH + NORTH ? (b & ~Rank9BB & ~Rank8BB) << std::uint8_t(NORTH + NORTH)
@@ -163,7 +163,7 @@ constexpr Bitboard shift(Bitboard b) {
 // Returns the squares attacked by pawns of the given color
 // from the squares in the given bitboard.
 template<Color C>
-constexpr Bitboard pawn_attacks_bb(Square s) {
+inline Bitboard pawn_attacks_bb(Square s) {
     Bitboard b      = square_bb(s);
     Bitboard attack = shift < C == WHITE ? NORTH : SOUTH > (b);
     if ((C == WHITE && rank_of(s) > RANK_4) || (C == BLACK && rank_of(s) < RANK_5))
@@ -175,7 +175,7 @@ constexpr Bitboard pawn_attacks_bb(Square s) {
 // Returns the squares that if there is a pawn
 // of the given color in there, it can attack the square s
 template<Color C>
-constexpr Bitboard pawn_attacks_to_bb(Square s) {
+inline Bitboard pawn_attacks_to_bb(Square s) {
     Bitboard b      = square_bb(s);
     Bitboard attack = shift < C == WHITE ? SOUTH : NORTH > (b);
     if ((C == WHITE && rank_of(s) > RANK_4) || (C == BLACK && rank_of(s) < RANK_5))
